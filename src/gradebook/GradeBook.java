@@ -10,16 +10,14 @@ public class GradeBook {
      *
      */
     public ArrayList<Student> students = new ArrayList<Student>();
-    //public String row ="1";
+   
     /**
      *
      */
+    public String input;
     public Student student;
-    /**
-     *
-     */
     //public String input;
-    public static Student s2;
+    // public static Student s2;
     public String record;
     static Scanner scanner = new Scanner(System.in);
 
@@ -34,131 +32,103 @@ public class GradeBook {
         System.out.print("please enter students name: ");
         String name = scanner.next();
         System.out.println(name);
-        int i =0;
-       // while( i < students.size()){
-        for (Student searching : students) {
-            i++;
-             if (searching.name.equals(name)) {
-                //System.out.println("name does match any of our records");
-                 
-                System.out.println(searching.getName() + ": " + searching.getAverage());
-                break;
-            }  
-                if(i == students.size()){//System.out.println(searching.getName() + ": " + searching.getAverage());
-                //System.out.println("name does match any of our records");
-                System.out.println("name does not match any of our records");
+        int i = 1;
+       // while (i < students.size()) {
+            for (Student searching : students) {
+                i++;
+                if (searching.name.equals(name)) {
+                    switch (input) {
+                        case "average":
+                            average(searching);
+                            break;
+                        case "add":
+                            addAGrade();
+                            break;
+                        case "grades":
+                            System.out.print(searching.name + " ");
+                            searching.getGrades();
+                            break;}
+                    
+                } else if (i==students.size())
+                                    System.out.print("no such name in our records");
 
-                
-             }}}
-    
-    public void add() {
-      //  Scanner scanner = new Scanner(System.in);
-        System.out.print("please enter students name: ");
-        String name = scanner.next();
-        System.out.println(name);
-        for (Student searching : students) {
-            
-             if (searching.name.equals(name)) {
-              System.out.print("enter grade");
-              //scanner.nextInt();
-                 searching.addGrade(scanner.nextInt());
-                System.out.println(searching.getName() + ": " + searching.getAverage());
-               System.out.println("do you want to add another record y/n");
-              String answer= scanner.next();
-                if(answer.equals("y"))
-                    continue;
-                
-            } else {
-                //System.out.println(searching.getName() + ": " + searching.getAverage());
-                //System.out.println("name does match any of our records");
-                System.out.println("name does not match any of our records");
-
-             }}}
-           
-        
-           public void printRecord(Student searching){
-               String names = searching.name;
-           
-            if (record.equals(names)) {
-                //System.out.println("name does match any of our records");
-                System.out.println(searching.getName() + ": " + searching.getAverage());
-                controler();
-            } else {
-                //System.out.println(searching.getName() + ": " + searching.getAverage());
-                //System.out.println("name does match any of our records");
-                System.out.println("name does not match any of our records");
-
-                
-            }
+                  }
         }
-    
+
+    public void average(Student searching) {
+        System.out.println(searching.name + ": " + searching.getAverage());
+        return;
+    }
+
+    public void printRecord(Student searching) {
+        String names = searching.name;
+
+        if (record.equals(names)) {
+           
+            System.out.println(searching.getName() + ": " + searching.getAverage());
+            controler();
+        } else {
+           
+            System.out.println("name does not match any of our records");
+
+
+        }
+    }
 
     public void controler() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(" please enter you want to do:");
-        System.out.println("To add a student write 'add' ");
-        System.out.println("To look up a record write 'record' :");
-        System.out.println(" To add a grade to an existing student write addgrade :");
+        System.out.println(" Please enter you want to do:\n"
+                + "To add a student write 'add': \n"
+                + "To look up average write 'average' :\n"
+                + "To add a grade to an existing student write 'addgrade' :\n"
+                + "to look up all of astudents grades write grades");
 
-        // Scanner scanner =new Scanner(System.in);
-         String input = scanner.next();
+        input = scanner.next();
         switch (input) {
             case "add":
                 System.out.println("please enter new students name");
                 String newStudent = scanner.next();
                 System.out.println(newStudent);
                 student = new Student(newStudent);
-                addAGrade(newStudent);
+                addAGrade();
                 gradebooks();
                 break;
-            case "record": checkRecord();
+            case "average":
+            case "addgrade":
+            case "grades":
+                checkRecord();
                 break;
-            case "addgrade": add();
-                break;
-            // }
 
-            // if(input.equals("add")){
-            //String newStudent =scanner.next();
-
-            // public void newStudent()  
-     /* System.out.println( "please enter new students name"  );
-             String newStudent =scanner.next();
-             System.out.println(newStudent);
-             student=new Student(newStudent);
-             addAGrade(newStudent);
-             }*/
+          
         }
     }
 
-    public void addAGrade(String studentName) {
-        Scanner scanner = new Scanner(System.in);
-        //student=new Student(newStudent);
-        System.out.println("please enter a grade");
-        String grad = scanner.next();
-        int grade = Integer.parseInt(grad);
-        student.addGrade(grade);
+    public void addAGrade() {
 
+        String answer = "y";
+        while (answer.equalsIgnoreCase("y")) {
+            Scanner scanner = new Scanner(System.in);
+            //student=new Student(newStudent);
+
+            System.out.println("please enter a grade");
+            int grade = scanner.nextInt();
+            scanner.nextLine();
+            student.addGrade(grade);
+            System.out.println("do you want to enter another grade y/n");
+            answer = scanner.next();
+            System.out.println();
+
+
+        }
     }
 
     public static void main(String[] args) {
 
-        // input = new Student("Bob");
-        //s2 = new Student("Joe");
-
-        //  Random r = new Random();
-        // for(int i = 0; i < 10; i++)
-        //  {
-        //  record.addGrade(r.nextInt(41) + 60);
-        //s2.addGrade(r.nextInt(41) + 60);
+     
         GradeBook gradebook = new GradeBook();
-        for(;;){
-                
-               
-        gradebook.controler();
-        
-        //gradebook.gradebooks();
-       // gradebook.ui();
-        //  System.out.println(s.getName() + ": " + s.getAverage());
-        }   // System.out.println(s2.getName() + ": " + s2.getAverage());
+        for (;;) {
+         gradebook.controler();
+
+        }   
     }
 }

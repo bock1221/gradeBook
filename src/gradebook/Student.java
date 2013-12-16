@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Student {
     public String name;
-    private ArrayList<Integer> grades = new ArrayList<Integer>();
+    public ArrayList<Integer> grades = new ArrayList<Integer>();
     
     public Student(String name) {
         this.name = name;
@@ -17,6 +17,11 @@ public class Student {
     public void addGrade(int grade){
         grades.add(grade);
     }
+    public void getGrades(){
+        for(int s : grades){
+           System.out.print(" "+ s+" ");
+            
+        } }
     
     public int getAverage() {
         int total = 0;
