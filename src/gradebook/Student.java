@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Student {
     public String name;
-    public ArrayList<Integer> grades = new ArrayList<Integer>();
+    protected ArrayList<Integer> grades = new ArrayList<Integer>();
     
-    public Student(String name) {
+     Student(String name) {
         this.name = name;
     }
     

@@ -6,73 +6,57 @@ import java.util.Scanner;
 
 public class GradeBook {
 
-    /**
-     *
-     */
     public ArrayList<Student> students = new ArrayList<Student>();
-   
-    /**
-     *
-     */
     public String input;
-    public Student student;
-    //public String input;
-    // public static Student s2;
-    public String record;
     static Scanner scanner = new Scanner(System.in);
 
-    public void gradebooks() {
+    public void newStudent(Student student) {
 
         students.add(student);
-        //students.add(s2);
     }
 
     public void checkRecord() {
-        //Scanner scanner = new Scanner(System.in);
+
         System.out.print("please enter students name: ");
         String name = scanner.next();
-        System.out.println(name);
-        int i = 1;
-       // while (i < students.size()) {
-            for (Student searching : students) {
-                i++;
-                if (searching.name.equals(name)) {
-                    switch (input) {
-                        case "average":
-                            average(searching);
-                            break;
-                        case "add":
-                            addAGrade();
-                            break;
-                        case "grades":
-                            System.out.print(searching.name + " ");
-                            searching.getGrades();
-                            break;}
-                    
-                } else if (i==students.size())
-                                    System.out.print("no such name in our records");
+        int i = 0;
+        iter:
+        for (Student student : students) {
+            i++;
+            if (student.name.equals(name)) {
+                switch (input) {
+                    case "average":
+                        average(student);
+                        System.out.println();
+                        break iter;
+                    case "add":
+                        addAGrade(student);
+                        System.out.println();
+                        break iter;
+                    case "grades":
+                        System.out.print(student.name + " ");
+                        student.getGrades();
+                        System.out.println();
+                        break iter;
+                    case "addgrade":
+                        addAGrade(student);
+                        System.out.println();
+                        break iter;
+                }
 
-                  }
+            } else if (i == students.size()) {
+                System.out.print("no such name in our records");
+            }
         }
-
-    public void average(Student searching) {
-        System.out.println(searching.name + ": " + searching.getAverage());
-        return;
     }
 
-    public void printRecord(Student searching) {
-        String names = searching.name;
+    public void average(Student student) {
+        System.out.println(student.name + ": " + student.getAverage());
+    }
 
-        if (record.equals(names)) {
-           
-            System.out.println(searching.getName() + ": " + searching.getAverage());
-            controler();
-        } else {
-           
-            System.out.println("name does not match any of our records");
+    public void printRecord(Student student) {
 
-
-        }
+        System.out.println(student.getName() + ": " + student.getAverage());
     }
 
     public void controler() {
@@ -81,29 +65,26 @@ public class GradeBook {
                 + "To add a student write 'add': \n"
                 + "To look up average write 'average' :\n"
                 + "To add a grade to an existing student write 'addgrade' :\n"
-                + "to look up all of astudents grades write grades");
+                + "to look up all of a students grades write 'grades':");
 
         input = scanner.next();
         switch (input) {
             case "add":
                 System.out.println("please enter new students name");
                 String newStudent = scanner.next();
-                System.out.println(newStudent);
-                student = new Student(newStudent);
-                addAGrade();
-                gradebooks();
+                Student student = new Student(newStudent);
+                addAGrade(student);
+                newStudent(student);
                 break;
             case "average":
             case "addgrade":
             case "grades":
                 checkRecord();
                 break;
-
-          
         }
     }
 
-    public void addAGrade() {
+    public void addAGrade(Student student) {
 
         String answer = "y";
         while (answer.equalsIgnoreCase("y")) {
@@ -117,18 +98,15 @@ public class GradeBook {
             System.out.println("do you want to enter another grade y/n");
             answer = scanner.next();
             System.out.println();
-
-
         }
     }
 
     public static void main(String[] args) {
 
-     
         GradeBook gradebook = new GradeBook();
         for (;;) {
-         gradebook.controler();
+            gradebook.controler();
 
-        }   
+        }
     }
 }
