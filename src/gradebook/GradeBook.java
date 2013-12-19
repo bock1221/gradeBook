@@ -22,8 +22,9 @@ public class GradeBook {
         int i = 0;
         iter:
         for (Student student : students) {
-            i++;
+          
             if (student.name.equals(name)) {
+                i++;
                 switch (input) {
                     case "average":
                         average(student);
@@ -42,9 +43,10 @@ public class GradeBook {
                         addAGrade(student);
                         System.out.println();
                         break iter;
+                       
                 }
 
-            } else if (i == students.size()) {
+            }  if (i!=1) {
                 System.out.print("no such name in our records");
             }
         }
@@ -85,20 +87,17 @@ public class GradeBook {
     }
 
     public void addAGrade(Student student) {
-
-        String answer = "y";
-        while (answer.equalsIgnoreCase("y")) {
-            Scanner scanner = new Scanner(System.in);
-            //student=new Student(newStudent);
-
-            System.out.println("please enter a grade");
+System.out.println("please enter a grades when done enter any letter to exit");
+       // String answer = "y";
+        while (scanner.hasNextInt()) {
             int grade = scanner.nextInt();
             scanner.nextLine();
             student.addGrade(grade);
-            System.out.println("do you want to enter another grade y/n");
-            answer = scanner.next();
             System.out.println();
-        }
+            Scanner scanner = new Scanner(System.in);
+            
+            System.out.println("please enter a grades when done enter any letter to exit");
+           }
     }
 
     public static void main(String[] args) {
