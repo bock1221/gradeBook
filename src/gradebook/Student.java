@@ -18,9 +18,10 @@ public class Student {
         grades.add(grade);
     }
     public void getGrades(){
+       int i=1;
         for(int s : grades){
-           System.out.print(" "+ s+" ");
-            
+           System.out.print("test"+i+":"+s+" ");
+            i++;
         } }
     
     public int getAverage() {
